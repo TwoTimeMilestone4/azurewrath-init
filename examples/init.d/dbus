@@ -1,0 +1,29 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          dbus
+# Required-Start:    $local_fs
+# Required-Stop:     $local_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: D-Bus system message bus
+### END INIT INFO
+
+case "$1" in
+  start)
+    echo "Starting dbus"
+    mkdir -p /run/dbus
+    dbus-daemon --system --fork
+    ;;
+  stop)
+    echo "Stopping dbus"
+    killall dbus-daemon || true
+    ;;
+  restart)
+    $0 stop
+    $0 start
+    ;;
+  status)
+    pidof dbus-daemon >/dev/null && echo "dbus running" || echo "dbus stopped"
+    ;;
+esac
+exit 0

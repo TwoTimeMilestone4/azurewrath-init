@@ -1,0 +1,4 @@
+# Pin to x86-64-v1 baseline (original AMD64 / Intel 64)
+# Only fxsr, sse, sse2. Runs on any x86-64 CPU.
+[build]
+rustflags = ["-C", "target-cpu=x86-64"]

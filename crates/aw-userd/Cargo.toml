@@ -1,0 +1,22 @@
+[package]
+name = "aw-userd"
+version.workspace = true
+authors.workspace = true
+repository.workspace = true
+license.workspace = true
+edition.workspace = true
+description = "user session manager for azurewrath-init"
+
+[[bin]]
+name = "aw-userd"
+path = "src/main.rs"
+
+[dependencies]
+nix = { version = "0.29", features = ["process", "signal", "fs"] }
+libc = "0.2"
+thiserror = "1.0"
+anyhow = "1.0"
+log = "0.4"
+env_logger = "0.11"
+serde = { version = "1.0", features = ["derive"] }
+xdg = "2.5"

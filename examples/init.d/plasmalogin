@@ -1,0 +1,50 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          plasmalogin
+# Required-Start:    $local_fs $network $syslog dbus
+# Required-Stop:     $local_fs $network $syslog
+# Default-Start:     5
+# Default-Stop:      0 1 6
+# Short-Description: Plasma Login Manager
+# Description:       Plasma Login Manager for Plasma 6.6+
+### END INIT INFO
+
+# Author: TwoTimeMilestone4
+# azurewrath-init SysV script for PLM
+
+NAME=plasmalogin
+DAEMON=/usr/bin/plasmalogin
+PIDFILE=/run/$NAME.pid
+
+case "$1" in
+  start)
+    echo "Starting $NAME"
+    # tty1 conflict handled by spoofd
+    start-stop-daemon --start --quiet --pidfile $PIDFILE --make-pidfile \
+      --exec $DAEMON -- --tty1
+    ;;
+  stop)
+    echo "Stopping $NAME"
+    start-stop-daemon --stop --quiet --pidfile $PIDFILE
+    rm -f $PIDFILE
+    ;;
+  restart)
+    $0 stop
+    $0 start
+    ;;
+  status)
+    if [ -f $PIDFILE ] && kill -0 $(cat $PIDFILE) 2>/dev/null; then
+      echo "$NAME is running"
+      exit 0
+    else
+      echo "$NAME is stopped"
+      exit 3
+    fi
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|status}"
+    exit 1
+    ;;
+esac
+
+exit 0

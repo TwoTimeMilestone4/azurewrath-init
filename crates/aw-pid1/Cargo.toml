@@ -1,0 +1,25 @@
+[package]
+name = "aw-pid1"
+version.workspace = true
+authors.workspace = true
+repository.workspace = true
+license.workspace = true
+edition.workspace = true
+description = "azurewrath-init PID 1 (SysVinit-compatible)"
+
+[[bin]]
+name = "aw-pid1"
+path = "src/main.rs"
+
+[dependencies]
+nix = { version = "0.29", features = ["fs", "process", "signal", "sched", "mman", "poll", "socket"] }
+libc = "0.2"
+thiserror = "1.0"
+anyhow = "1.0"
+log = "0.4"
+env_logger = "0.11"
+serde = { version = "1.0", features = ["derive"] }
+toml = "0.8"
+
+[dev-dependencies]
+tempfile = "3"

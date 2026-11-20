@@ -1,0 +1,25 @@
+[package]
+name = "aw-spoofd"
+version.workspace = true
+authors.workspace = true
+repository.workspace = true
+license.workspace = true
+edition.workspace = true
+description = "systemd and logind spoof daemon for azurewrath-init"
+
+[[bin]]
+name = "aw-spoofd"
+path = "src/main.rs"
+
+[dependencies]
+zbus = "4.4"
+zvariant = "4.2"
+nix = { version = "0.29", features = ["process", "signal", "fs", "socket"] }
+libc = "0.2"
+thiserror = "1.0"
+anyhow = "1.0"
+log = "0.4"
+env_logger = "0.11"
+serde = { version = "1.0", features = ["derive"] }
+tokio = { version = "1.40", features = ["full"] }  # only for spoofd, not PID1
+futures-util = "0.3"

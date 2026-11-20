@@ -1,0 +1,43 @@
+# /etc/inittab for azurewrath-init
+# SysVinit-compatible format
+# id:runlevels:action:process
+#
+# Author: TwoTimeMilestone4
+# Compatible with Gentoo, Devuan, Slackware style
+
+# Default runlevel
+id:3:initdefault:
+
+# System initialization
+si::sysinit:/etc/rc.sysinit
+
+# Runlevel scripts
+l0:0:wait:/etc/rc.d/rc 0
+l1:1:wait:/etc/rc.d/rc 1
+l2:2:wait:/etc/rc.d/rc 2
+l3:3:wait:/etc/rc.d/rc 3
+l4:4:wait:/etc/rc.d/rc 4
+l5:5:wait:/etc/rc.d/rc 5
+l6:6:wait:/etc/rc.d/rc 6
+
+# Getty on tty1-6 (multi-user)
+1:2345:respawn:/sbin/getty 38400 tty1
+2:2345:respawn:/sbin/getty 38400 tty2
+3:2345:respawn:/sbin/getty 38400 tty3
+4:2345:respawn:/sbin/getty 38400 tty4
+5:2345:respawn:/sbin/getty 38400 tty5
+6:2345:respawn:/sbin/getty 38400 tty6
+
+# Ctrl-Alt-Del
+ca::ctrlaltdel:/sbin/shutdown -t3 -r now
+
+# Power fail
+pf::powerfail:/sbin/shutdown -f -h +2 "Power Failure; System Shutting Down"
+pn::powerfailnow:/sbin/shutdown -f -h +2 "Power Failure; System Shutting Down"
+po::powerokwait:/sbin/shutdown -c "Power Restored; Shutdown Cancelled"
+
+# Local startup
+rc::bootwait:/etc/rc.local
+
+# Graphical (runlevel 5) - spoofd + display manager handled by rc script
+# spoofd is started via /etc/init.d/spoofd in rc5.d

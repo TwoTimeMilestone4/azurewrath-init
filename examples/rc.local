@@ -1,0 +1,10 @@
+#!/bin/sh
+# /etc/rc.local
+# Local startup script for azurewrath-init
+# Author: TwoTimeMilestone4
+
+echo "azurewrath-init rc.local running"
+
+# Add any local commands here
+
+exit 0
